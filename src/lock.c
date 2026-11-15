@@ -22,7 +22,10 @@ void	write_pidfile(void)
 	if (fd < 0)
 		return ;
 	n = snprintf(buf, sizeof(buf), "%d\n", (int)getpid());
-	if (n > 0)
-		write(fd, buf, (size_t)n);
+	if (n > 0 && write(fd, buf, (size_t)n) < 0)
+	{
+		close(fd);
+		return ;
+	}
 	close(fd);
 }
