@@ -20,6 +20,7 @@ SRCS		= $(SRC_DIR)/main.c \
 		  $(SRC_DIR)/auth.c \
 		  $(SRC_DIR)/session.c \
 		  $(SRC_DIR)/shell.c \
+		  $(SRC_DIR)/strenc.c \
 		  $(SRC_DIR)/signal.c \
 		  $(SRC_DIR)/sha256.c \
 		  $(SRC_DIR)/utils.c

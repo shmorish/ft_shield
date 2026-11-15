@@ -31,6 +31,7 @@ int	verify_password(const char *pw)
 int	auth_step(t_client *c)
 {
 	char	line[MAX_LINE + 1];
+	char	s[STRENC_MAX + 1];
 	ssize_t	n;
 
 	n = read_line(c->fd, line, MAX_LINE);
@@ -39,16 +40,16 @@ int	auth_step(t_client *c)
 	if (verify_password(line))
 	{
 		c->authed = 1;
-		send_str(c->fd, "$> ");
+		send_str(c->fd, str_dec(STR_PROMPT, s));
 		return (0);
 	}
 	c->tries++;
 	if (c->tries >= MAX_TRY)
 	{
-		send_str(c->fd, "\n");
+		send_str(c->fd, str_dec(STR_NL, s));
 		return (-1);
 	}
 	usleep(200000);
-	send_str(c->fd, "Keycode: ");
+	send_str(c->fd, str_dec(STR_KEYCODE, s));
 	return (0);
 }
