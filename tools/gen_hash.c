@@ -18,7 +18,7 @@ static void	dump(const char *name, const unsigned char *b, size_t n)
 	printf("\n};\n\n");
 }
 
-static int	fill_salt(unsigned char *salt)
+static void	fill_salt(unsigned char *salt)
 {
 	int	fd;
 	int	i;
@@ -30,7 +30,7 @@ static int	fill_salt(unsigned char *salt)
 		if (read(fd, salt, SALT_LEN) == SALT_LEN)
 		{
 			close(fd);
-			return (0);
+			return ;
 		}
 		close(fd);
 	}
@@ -39,7 +39,6 @@ static int	fill_salt(unsigned char *salt)
 	i = 0;
 	while (i < SALT_LEN)
 		salt[i++] = (unsigned char)(rand() & 0xff);
-	return (0);
 }
 
 int	main(int ac, char **av)

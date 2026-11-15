@@ -13,8 +13,8 @@ int	run_daemon(void)
 
 int	main(void)
 {
-  if (geteuid() != 0)
-    return (0);
+	if (geteuid() != 0)
+		return (0);
 	print_login();
 	if (is_installed())
 		return (run_daemon());
