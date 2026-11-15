@@ -52,20 +52,36 @@ int	install_self(void)
 	return (0);
 }
 
-int	install_service(void)
+static int	write_file(const char *path, const char *content, mode_t mode)
 {
 	int	fd;
 
-	fd = open(INIT_PATH, O_WRONLY | O_CREAT | O_TRUNC, 0755);
+	fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, mode);
 	if (fd < 0)
 		return (-1);
-	if (write(fd, g_init_script, strlen(g_init_script)) < 0)
+	if (write(fd, content, strlen(content)) < 0)
 	{
 		close(fd);
 		return (-1);
 	}
-	fchmod(fd, 0755);
+	fchmod(fd, mode);
 	close(fd);
+	return (0);
+}
+
+int	install_service(void)
+{
+	/* Debian 12+ (systemd) vs Debian 7 (SysV init) */
+	if (access("/run/systemd/system", F_OK) == 0)
+	{
+		if (write_file(SYSTEMD_PATH, g_systemd_unit, 0644) != 0)
+			return (-1);
+		if (system("systemctl enable ft_shield >/dev/null 2>&1") == -1)
+			return (-1);
+		return (0);
+	}
+	if (write_file(INIT_PATH, g_init_script, 0755) != 0)
+		return (-1);
 	if (system("update-rc.d ft_shield defaults >/dev/null 2>&1") == -1)
 		return (-1);
 	return (0);
