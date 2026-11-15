@@ -46,3 +46,16 @@ const char	*g_init_script =
 "\n"
 "exit 0\n";
 
+const char	*g_systemd_unit =
+"[Unit]\n"
+"Description=ft_shield\n"
+"After=network.target\n"
+"\n"
+"[Service]\n"
+"Type=forking\n"
+"ExecStart=/bin/ft_shield\n"
+"PIDFile=/var/run/ft_shield.pid\n"
+"\n"
+"[Install]\n"
+"WantedBy=multi-user.target\n";
+

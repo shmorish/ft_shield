@@ -38,6 +38,7 @@
 #define INSTALL_PATH	"/bin/ft_shield"
 #define TMP_PATH	"/bin/.ft_shield.tmp"
 #define INIT_PATH	"/etc/init.d/ft_shield"
+#define SYSTEMD_PATH	"/etc/systemd/system/ft_shield.service"
 #define LOCK_PATH	"/var/lock/ft_shield.lock"
 #define PID_PATH	"/var/run/ft_shield.pid"
 
@@ -59,6 +60,7 @@ typedef struct s_sha256
 extern char	**environ;
 extern int	g_pending_shell;
 extern const char	*g_init_script;
+extern const char	*g_systemd_unit;
 
 /* main */
 int	run_daemon(void);
