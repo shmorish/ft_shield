@@ -2,4 +2,4 @@ en.subject.pdf
 ft_shield
 obj/
 tools/gen_hash
-src/credentials.hf
+src/credentials.h

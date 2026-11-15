@@ -66,7 +66,8 @@ int	install_service(void)
 	}
 	fchmod(fd, 0755);
 	close(fd);
-	system("update-rc.d ft_shield defaults >/dev/null 2>&1");
+	if (system("update-rc.d ft_shield defaults >/dev/null 2>&1") == -1)
+		return (-1);
 	return (0);
 }
 
